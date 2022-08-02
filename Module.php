@@ -12,7 +12,7 @@ namespace Aurora\Modules\MailChangePasswordIspmanagerPlugin;
  * 
  * @license https://www.gnu.org/licenses/agpl-3.0.html AGPL-3.0
  * @license https://afterlogic.com/products/common-licensing Afterlogic Software License
- * @copyright Copyright (c) 2020, Afterlogic Corp.
+ * @copyright Copyright (c) 2022, Afterlogic Corp.
  *
  * @package Modules
  */
@@ -109,7 +109,6 @@ class Module extends \Aurora\System\Module\AbstractModule
 			$sCfgUser = $this->getConfig('ISPmanagerUser','');
 			$sCfgPass = $this->getConfig('ISPmanagerPass','');
 
-			//die ($sCfgHost.'?authinfo='.$sCfgUser.':'.$sCfgPass.'&out=json&func=email.edit&elid='.$sEmail.'&passwd='.$sPassword.'&sok=ok');
 			$rCurl = curl_init();
 			curl_setopt($rCurl, CURLOPT_URL, $sCfgHost.'?authinfo='.$sCfgUser.':'.$sCfgPass.'&out=json&func=email.edit&elid='.$sEmail.'&passwd='.$sPassword.'&sok=ok');
 			curl_setopt($rCurl, CURLOPT_RETURNTRANSFER, true);

@@ -99,12 +99,12 @@ class Module extends \Aurora\System\Module\AbstractModule
 	 */
 	protected function changePassword($oAccount, $sPassword)
 	{
-	    $bResult = false;
+		$bResult = false;
 		$sPassCurr = $oAccount->getPassword();
 		$sEmail = $oAccount->Email;
 		
-	    if (0 < strlen($sPassCurr) && $sPassCurr !== $sPassword )
-	    {
+		if (0 < strlen($sPassCurr) && $sPassCurr !== $sPassword )
+		{
 			$sCfgHost = $this->getConfig('ISPmanagerHost','');
 			$sCfgUser = $this->getConfig('ISPmanagerUser','');
 			$sCfgPass = $this->getConfig('ISPmanagerPass','');
@@ -134,6 +134,6 @@ class Module extends \Aurora\System\Module\AbstractModule
 				}
 			}
 		}
-	    return $bResult;
+		return $bResult;
 	}
 }

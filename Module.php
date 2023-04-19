@@ -14,6 +14,8 @@ namespace Aurora\Modules\MailChangePasswordIspmanagerPlugin;
  * @license https://afterlogic.com/products/common-licensing Afterlogic Software License
  * @copyright Copyright (c) 2023, Afterlogic Corp.
  *
+ * @property Settings $oModuleSettings
+ *
  * @package Modules
  */
 class Module extends \Aurora\System\Module\AbstractModule
@@ -89,12 +91,12 @@ class Module extends \Aurora\System\Module\AbstractModule
      */
     protected function checkCanChangePassword($oAccount)
     {
-        $bFound = in_array('*', $this->getConfig('SupportedServers', array()));
+        $bFound = in_array('*', $this->oModuleSettings->SupportedServers);
 
         if (!$bFound) {
             $oServer = $oAccount->getServer();
 
-            if ($oServer && in_array($oServer->IncomingServer, $this->getConfig('SupportedServers'))) {
+            if ($oServer && in_array($oServer->IncomingServer, $this->oModuleSettings->SupportedServers)) {
                 $bFound = true;
             }
         }
@@ -116,9 +118,9 @@ class Module extends \Aurora\System\Module\AbstractModule
         $sEmail = $oAccount->Email;
 
         if (0 < strlen($sPassCurr) && $sPassCurr !== $sPassword) {
-            $sCfgHost = $this->getConfig('ISPmanagerHost', '');
-            $sCfgUser = $this->getConfig('ISPmanagerUser', '');
-            $sCfgPass = $this->getConfig('ISPmanagerPass', '');
+            $sCfgHost = $this->oModuleSettings->ISPmanagerHost;
+            $sCfgUser = $this->oModuleSettings->ISPmanagerUser;
+            $sCfgPass = $this->oModuleSettings->ISPmanagerPass;
 
             $rCurl = curl_init();
             curl_setopt($rCurl, CURLOPT_URL, $sCfgHost.'?authinfo='.$sCfgUser.':'.$sCfgPass.'&out=json&func=email.edit&elid='.$sEmail.'&passwd='.$sPassword.'&sok=ok');

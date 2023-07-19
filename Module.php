@@ -128,6 +128,13 @@ class Module extends \Aurora\System\Module\AbstractModule
             $sCfgUser = $this->oModuleSettings->ISPmanagerUser;
             $sCfgPass = $this->oModuleSettings->ISPmanagerPass;
 
+            if ($sCfgPass && !\Aurora\System\Utils::IsEncryptedValue($sCfgPass)) {
+                $this->setConfig('ISPmanagerPass', \Aurora\System\Utils::EncryptValue($sCfgPass));
+                $this->saveModuleConfig();
+            } else {
+                $sCfgPass = \Aurora\System\Utils::DecryptValue($sCfgPass);
+            }
+
             $rCurl = curl_init();
             curl_setopt($rCurl, CURLOPT_URL, $sCfgHost.'?authinfo='.$sCfgUser.':'.$sCfgPass.'&out=json&func=email.edit&elid='.$sEmail.'&passwd='.$sPassword.'&sok=ok');
             curl_setopt($rCurl, CURLOPT_RETURNTRANSFER, true);

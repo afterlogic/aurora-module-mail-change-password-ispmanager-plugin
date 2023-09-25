@@ -136,7 +136,7 @@ class Module extends \Aurora\System\Module\AbstractModule
             }
 
             $rCurl = curl_init();
-            curl_setopt($rCurl, CURLOPT_URL, $sCfgHost.'?authinfo='.$sCfgUser.':'.$sCfgPass.'&out=json&func=email.edit&elid='.$sEmail.'&passwd='.$sPassword.'&sok=ok');
+            curl_setopt($rCurl, CURLOPT_URL, $sCfgHost . '?authinfo=' . $sCfgUser . ':' . $sCfgPass . '&out=json&func=email.edit&elid=' . $sEmail . '&passwd=' . $sPassword . '&sok=ok');
             curl_setopt($rCurl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($rCurl, CURLOPT_CONNECTTIMEOUT, 20);
             curl_setopt($rCurl, CURLOPT_SSL_VERIFYHOST, 0);
@@ -148,7 +148,7 @@ class Module extends \Aurora\System\Module\AbstractModule
                 throw new \Aurora\System\Exceptions\ApiException(\Aurora\System\Exceptions\Errs::UserManager_AccountNewPasswordUpdateError);
             } else {
                 $rez = json_decode($data, true);
-                if (($rez === false)||isset($rez["doc"]["error"])) {
+                if (($rez === false) || isset($rez["doc"]["error"])) {
                     throw new \Aurora\System\Exceptions\ApiException(\Aurora\System\Exceptions\Errs::UserManager_AccountNewPasswordUpdateError);
                 } else {
                     $bResult = true;

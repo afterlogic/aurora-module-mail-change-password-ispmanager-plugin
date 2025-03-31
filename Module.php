@@ -8,6 +8,7 @@
 namespace Aurora\Modules\MailChangePasswordIspmanagerPlugin;
 
 use Aurora\Modules\Mail\Models\MailAccount;
+use Aurora\System\Notifications;
 
 /**
  * Allows users to change passwords on their email accounts in ISPmanager.
@@ -147,11 +148,11 @@ class Module extends \Aurora\System\Module\AbstractModule
             curl_close($rCurl);
 
             if ($data === false) {
-                throw new \Aurora\System\Exceptions\ApiException(\Aurora\System\Exceptions\Errs::UserManager_AccountNewPasswordUpdateError);
+                throw new \Aurora\System\Exceptions\ApiException(Notifications::CanNotChangePassword);
             } else {
                 $rez = json_decode($data, true);
                 if (($rez === false) || isset($rez["doc"]["error"])) {
-                    throw new \Aurora\System\Exceptions\ApiException(\Aurora\System\Exceptions\Errs::UserManager_AccountNewPasswordUpdateError);
+                    throw new \Aurora\System\Exceptions\ApiException(Notifications::CanNotChangePassword);
                 } else {
                     $bResult = true;
                 }

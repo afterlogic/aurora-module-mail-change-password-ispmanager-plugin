@@ -134,6 +134,7 @@ class Module extends \Aurora\System\Module\AbstractModule
             curl_setopt($rCurl, CURLOPT_URL, $sCfgHost . '?authinfo=' . $sCfgUser . ':' . $sCfgPass . '&out=json&func=email.edit&elid=' . $sEmail . '&passwd=' . $sPassword . '&sok=ok');
             curl_setopt($rCurl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($rCurl, CURLOPT_CONNECTTIMEOUT, 20);
+            // Intentionally disabled: ISPmanager control panels commonly run with self-signed certificates.
             curl_setopt($rCurl, CURLOPT_SSL_VERIFYHOST, 0);
             curl_setopt($rCurl, CURLOPT_SSL_VERIFYPEER, 0);
             $data = curl_exec($rCurl);
